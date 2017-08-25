@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QLabel>
-#include <QLineEdit>
+
 #include <QSpacerItem>
 #include <QList>
 #include <QDebug>
@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     leftLay->setAlignment(header, Qt::AlignLeft);
     header->addWidget(lName);
     header->addWidget(lMon);
-
+    pers = new QList<QPair<QLineEdit *, QLineEdit *>>();
 
 }
 
@@ -79,17 +79,25 @@ void MainWindow::on_addPerson_clicked()
     v->addWidget(name);
     v->addWidget(money);
 
+    pers->prepend(qMakePair(name, money));
+
     values->addLayout(v);
     values->setAlignment(v, Qt::AlignLeft);
 }
 
 void MainWindow::on_computeMon_clicked()
 {
-    //QList<QBoxLayout *> vs = values->findChildren<QBoxLayout *>();
-    //qDebug() << vs.isEmpty();
-    QList<QLineEdit *> pers = values->findChildren<QLineEdit *>("money");
-    qDebug() << pers.isEmpty();
-    qDebug () << values->children().at(0)->children();
-    //ui->total->setText(pers.at(0)->text());
+
+    //calculate total amount
+    int total = 0;
+
+    for(int i = 0; i < pers->size(); i++){
+        total += pers->at(i).second->text().toInt();
+    }
+    ui->total->setText("Total: " + QString::number(total));
+    //PER PERSON
+    int perPerson = total/pers->size();
+    qDebug() << perPerson;
+
 
 }

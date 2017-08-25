@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QBoxLayout>
 #include <QLabel>
+#include <QLineEdit>
+#include <QPair>
 
 namespace Ui {
 class MainWindow;
@@ -26,6 +28,7 @@ private:
     Ui::MainWindow *ui;
     QBoxLayout *leftLay;
     QBoxLayout *values;
+    QList<QPair <QLineEdit *, QLineEdit *>> *pers;
 };
 
 #endif // MAINWINDOW_H
